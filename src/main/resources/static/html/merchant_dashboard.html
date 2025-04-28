@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merchant Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-icons@latest/dist/umd/lucide.min.css">
+</head>
+<body>
+<div class="dashboard">
+  <!-- Mobile Header -->
+  <header class="header">
+    <button id="sidebar-toggle" class="sidebar-toggle">
+      <i data-lucide="menu"></i>
+      <span class="sr-only">Toggle Menu</span>
+    </button>
+    <h1 class="header-title">Merchant Dashboard</h1>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2 class="company-name">Acme Inc</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="admin.html" class="nav-item">
+        <i data-lucide="home"></i>
+        <span>Admin Dashboard</span>
+      </a>
+      <a href="user.html" class="nav-item">
+        <i data-lucide="user"></i>
+        <span>User Dashboard</span>
+      </a>
+      <a href="agent.html" class="nav-item">
+        <i data-lucide="headphones"></i>
+        <span>Agent Dashboard</span>
+      </a>
+      <a href="merchant.html" class="nav-item active">
+        <i data-lucide="shopping-bag"></i>
+        <span>Merchant Dashboard</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i data-lucide="package"></i>
+        <span>Products</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i data-lucide="shopping-cart"></i>
+        <span>Orders</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i data-lucide="users"></i>
+        <span>Customers</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i data-lucide="credit-card"></i>
+        <span>Transactions</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i data-lucide="settings"></i>
+        <span>Store Settings</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Tabs -->
+      <div class="tabs">
+        <div class="tabs-list">
+          <button class="tab-trigger active" data-tab="overview">Overview</button>
+          <button class="tab-trigger" data-tab="products">Products</button>
+          <button class="tab-trigger" data-tab="orders">Orders</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="tab-content active" id="overview">
+          <div class="stats-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Today's Sales</h3>
+                <i data-lucide="dollar-sign"></i>
+              </div>
+              <div class="card-content">
+                <div class="stat-value">$1,245.89</div>
+                <p class="stat-comparison">+15.3% from yesterday</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Orders</h3>
+                <i data-lucide="shopping-cart"></i>
+              </div>
+              <div class="card-content">
+                <div class="stat-value">24</div>
+                <p class="stat-comparison">5 pending fulfillment</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Visitors</h3>
+                <i data-lucide="users"></i>
+              </div>
+              <div class="card-content">
+                <div class="stat-value">342</div>
+                <p class="stat-comparison">+28% from yesterday</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Conversion Rate</h3>
+                <i data-lucide="percent"></i>
+              </div>
+              <div class="card-content">
+                <div class="stat-value">7.2%</div>
+                <p class="stat-comparison">+0.5% from last week</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="charts-grid">
+            <div class="card chart-card">
+              <div class="card-header">
+                <h3 class="card-title">Sales Overview</h3>
+              </div>
+              <div class="card-content">
+                <div class="sales-chart" id="sales-chart"></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Top Selling Products</h3>
+              </div>
+              <div class="card-content">
+                <div class="top-products">
+                  <div class="product-item">
+                    <div class="product-rank">1</div>
+                    <div class="product-details">
+                      <p class="product-name">Wireless Headphones</p>
+                      <p class="product-category">Electronics</p>
+                    </div>
+                    <div class="product-sales">
+                      <p class="sales-count">124 sold</p>
+                      <p class="sales-amount">$15,376.00</p>
+                    </div>
+                  </div>
+                  <div class="product-item">
+                    <div class="product-rank">2</div>
+                    <div class="product-details">
+                      <p class="product-name">Smart Watch</p>
+                      <p class="product-category">Electronics</p>
+                    </div>
+                    <div class="product-sales">
+                      <p class="sales-count">98 sold</p>
+                      <p class="sales-amount">$24,402.00</p>
+                    </div>
+                  </div>
+                  <div class="product-item">
+                    <div class="product-rank">3</div>
+                    <div class="product-details">
+                      <p class="product-name">Bluetooth Speaker</p>
+                      <p class="product-category">Electronics</p>
+                    </div>
+                    <div class="product-sales">
+                      <p class="sales-count">87 sold</p>
+                      <p class="sales-amount">$6,873.00</p>
+                    </div>
+                  </div>
+                  <div class="product-item">
+                    <div class="product-rank">4</div>
+                    <div class="product-details">
+                      <p class="product-name">Fitness Tracker</p>
+                      <p class="product-category">Electronics</p>
+                    </div>
+                    <div class="product-sales">
+                      <p class="sales-count">65 sold</p>
+                      <p class="sales-amount">$5,135.00</p>
+                    </div>
+                  </div>
+                  <div class="product-item">
+                    <div class="product-rank">5</div>
+                    <div class="product-details">
+                      <p class="product-name">Wireless Earbuds</p>
+                      <p class="product-category">Electronics</p>
+                    </div>
+                    <div class="product-sales">
+                      <p class="sales-count">54 sold</p>
+                      <p class="sales-amount">$4,806.00</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent Orders</h3>
+            </div>
+            <div class="card-content">
+              <div class="recent-orders">
+                <table>
+                  <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Products</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>#ORD-5523</td>
+                    <td>Sarah Johnson</td>
+                    <td>Wireless Headphones, USB-C Cable</td>
+                    <td>$129.99</td>
+                    <td>Today, 10:15 AM</td>
+                    <td><span class="status-badge pending">Pending</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="eye"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="package"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#ORD-5522</td>
+                    <td>Michael Brown</td>
+                    <td>Smart Watch</td>
+                    <td>$249.99</td>
+                    <td>Today, 09:45 AM</td>
+                    <td><span class="status-badge shipped">Shipped</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="eye"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="truck"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#ORD-5521</td>
+                    <td>Emily Davis</td>
+                    <td>Bluetooth Speaker</td>
+                    <td>$79.99</td>
+                    <td>Today, 09:15 AM</td>
+                    <td><span class="status-badge processing">Processing</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="eye"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="package"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#ORD-5520</td>
+                    <td>James Wilson</td>
+                    <td>Fitness Tracker, Charging Cable</td>
+                    <td>$89.99</td>
+                    <td>Today, 08:30 AM</td>
+                    <td><span class="status-badge delivered">Delivered</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="eye"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="check"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div class="tab-content" id="products">
+          <div class="products-header">
+            <div class="search-container">
+              <input type="text" placeholder="Search products..." class="search-input">
+              <button class="search-btn">
+                <i data-lucide="search"></i>
+              </button>
+            </div>
+            <button class="add-product-btn">
+              <i data-lucide="plus"></i> Add Product
+            </button>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <div class="products-table">
+                <table>
+                  <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>
+                      <div class="product-cell">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                          <p class="product-name">Wireless Headphones</p>
+                          <p class="product-id">ID: PRD-001</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>WH-BLK-001</td>
+                    <td>Electronics</td>
+                    <td>$129.99</td>
+                    <td>45</td>
+                    <td><span class="status-badge active">Active</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="edit"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="product-cell">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                          <p class="product-name">Smart Watch</p>
+                          <p class="product-id">ID: PRD-002</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>SW-BLK-001</td>
+                    <td>Electronics</td>
+                    <td>$249.99</td>
+                    <td>32</td>
+                    <td><span class="status-badge active">Active</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="edit"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="product-cell">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                          <p class="product-name">Bluetooth Speaker</p>
+                          <p class="product-id">ID: PRD-003</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>BS-BLU-001</td>
+                    <td>Electronics</td>
+                    <td>$79.99</td>
+                    <td>18</td>
+                    <td><span class="status-badge active">Active</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="edit"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="product-cell">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                          <p class="product-name">Fitness Tracker</p>
+                          <p class="product-id">ID: PRD-004</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>FT-BLK-001</td>
+                    <td>Electronics</td>
+                    <td>$79.99</td>
+                    <td>24</td>
+                    <td><span class="status-badge active">Active</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="edit"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="product-cell">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                          <p class="product-name">Wireless Earbuds</p>
+                          <p class="product-id">ID: PRD-005</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>WE-WHT-001</td>
+                    <td>Electronics</td>
+                    <td>$89.99</td>
+                    <td>12</td>
+                    <td><span class="status-badge low-stock">Low Stock</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="edit"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders Tab -->
+        <div class="tab-content" id="orders">
+          <div class="orders-header">
+            <div class="search-container">
+              <input type="text" placeholder="Search orders..." class="search-input">
+              <button class="search-btn">
+                <i data-lucide="search"></i>
+              </button>
+            </div>
+            <div class="filter-container">
+              <select class="filter-select">
+                <option value="all">All Orders</option>
+                <option value="pending">Pending</option>
+                <option value="processing">Processing</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+              </select>
+              <input type="date" class="date-filter">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <div class="orders-table">
+                <table>
+                  <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Products</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>#ORD-5523</td>
+                    <td>Sarah Johnson</td>
+                    <td>Wireless Headphones, USB-C Cable</td>
+                    <td>$129.99</td>
+                    <td>Today, 10:15 AM</td>
+                    <td><span class="status-badge pending">Pending</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="eye"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="package"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#ORD-5522</td>
+                    <td>Michael Brown</td>
+                    <td>Smart Watch</td>
+                    <td>$249.99</td>
+                    <td>Today, 09:45 AM</td>
+                    <td><span class="status-badge shipped">Shipped</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="eye"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="truck"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#ORD-5521</td>
+                    <td>Emily Davis</td>
+                    <td>Bluetooth Speaker</td>
+                    <td>$79.99</td>
+                    <td>Today, 09:15 AM</td>
+                    <td><span class="status-badge processing">Processing</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="eye"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="package"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#ORD-5520</td>
+                    <td>James Wilson</td>
+                    <td>Fitness Tracker, Charging Cable</td>
+                    <td>$89.99</td>
+                    <td>Today, 08:30 AM</td>
+                    <td><span class="status-badge delivered">Delivered</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="eye"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="check"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#ORD-5519</td>
+                    <td>Robert Taylor</td>
+                    <td>Wireless Earbuds</td>
+                    <td>$89.99</td>
+                    <td>Yesterday, 04:20 PM</td>
+                    <td><span class="status-badge delivered">Delivered</span></td>
+                    <td>
+                      <button class="action-btn">
+                        <i data-lucide="eye"></i>
+                      </button>
+                      <button class="action-btn">
+                        <i data-lucide="check"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

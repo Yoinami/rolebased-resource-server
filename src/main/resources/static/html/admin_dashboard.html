@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-icons@latest/dist/umd/lucide.min.css">
+</head>
+<body>
+<div class="dashboard">
+    <!-- Mobile Header -->
+    <header class="header">
+        <button id="sidebar-toggle" class="sidebar-toggle">
+            <i data-lucide="menu"></i>
+            <span class="sr-only">Toggle Menu</span>
+        </button>
+        <h1 class="header-title">Admin Dashboard</h1>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 class="company-name">Acme Inc</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="admin.html" class="nav-item active">
+                <i data-lucide="home"></i>
+                <span>Admin Dashboard</span>
+            </a>
+            <a href="user.html" class="nav-item">
+                <i data-lucide="user"></i>
+                <span>User Dashboard</span>
+            </a>
+            <a href="agent.html" class="nav-item">
+                <i data-lucide="headphones"></i>
+                <span>Agent Dashboard</span>
+            </a>
+            <a href="merchant.html" class="nav-item">
+                <i data-lucide="shopping-bag"></i>
+                <span>Merchant Dashboard</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i data-lucide="bar-chart-3"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i data-lucide="line-chart"></i>
+                <span>Reports</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i data-lucide="users"></i>
+                <span>Users</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i data-lucide="package"></i>
+                <span>Products</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i data-lucide="settings"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tabs-list">
+                    <button class="tab-trigger active" data-tab="overview">Overview</button>
+                    <button class="tab-trigger" data-tab="analytics">Analytics</button>
+                    <button class="tab-trigger" data-tab="reports">Reports</button>
+                </div>
+
+                <!-- Overview Tab -->
+                <div class="tab-content active" id="overview">
+                    <div class="stats-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Total Revenue</h3>
+                                <i data-lucide="line-chart"></i>
+                            </div>
+                            <div class="card-content">
+                                <div class="stat-value">$45,231.89</div>
+                                <p class="stat-comparison">+20.1% from last month</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Subscriptions</h3>
+                                <i data-lucide="users"></i>
+                            </div>
+                            <div class="card-content">
+                                <div class="stat-value">+2350</div>
+                                <p class="stat-comparison">+180.1% from last month</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Sales</h3>
+                                <i data-lucide="bar-chart-3"></i>
+                            </div>
+                            <div class="card-content">
+                                <div class="stat-value">+12,234</div>
+                                <p class="stat-comparison">+19% from last month</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Active Now</h3>
+                                <i data-lucide="users"></i>
+                            </div>
+                            <div class="card-content">
+                                <div class="stat-value">+573</div>
+                                <p class="stat-comparison">+201 since last hour</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Overview</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="overview-chart" id="overview-chart"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Recent Sales</h3>
+                                <p class="card-description">You made 265 sales this month.</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="recent-sales">
+                                    <div class="sale-item">
+                                        <div class="avatar">O</div>
+                                        <div class="sale-details">
+                                            <p class="sale-name">Olivia Martin</p>
+                                            <p class="sale-email">olivia.martin@email.com</p>
+                                        </div>
+                                        <div class="sale-amount">+$1,999.00</div>
+                                    </div>
+                                    <div class="sale-item">
+                                        <div class="avatar">J</div>
+                                        <div class="sale-details">
+                                            <p class="sale-name">Jackson Lee</p>
+                                            <p class="sale-email">jackson.lee@email.com</p>
+                                        </div>
+                                        <div class="sale-amount">+$39.00</div>
+                                    </div>
+                                    <div class="sale-item">
+                                        <div class="avatar">I</div>
+                                        <div class="sale-details">
+                                            <p class="sale-name">Isabella Nguyen</p>
+                                            <p class="sale-email">isabella.nguyen@email.com</p>
+                                        </div>
+                                        <div class="sale-amount">+$299.00</div>
+                                    </div>
+                                    <div class="sale-item">
+                                        <div class="avatar">W</div>
+                                        <div class="sale-details">
+                                            <p class="sale-name">William Kim</p>
+                                            <p class="sale-email">will@email.com</p>
+                                        </div>
+                                        <div class="sale-amount">+$99.00</div>
+                                    </div>
+                                    <div class="sale-item">
+                                        <div class="avatar">S</div>
+                                        <div class="sale-details">
+                                            <p class="sale-name">Sofia Davis</p>
+                                            <p class="sale-email">sofia.davis@email.com</p>
+                                        </div>
+                                        <div class="sale-amount">+$450.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div class="tab-content" id="analytics">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Distribution</h3>
+                            <p class="card-description">Product category distribution for the current month.</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="pie-chart-container">
+                                <div class="pie-chart" id="pie-chart"></div>
+                                <div class="pie-legend">
+                                    <div class="legend-item">
+                                        <div class="legend-color bg-blue"></div>
+                                        <span>Electronics (35%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color bg-green"></div>
+                                        <span>Clothing (25%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color bg-yellow"></div>
+                                        <span>Food (20%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color bg-purple"></div>
+                                        <span>Books (15%)</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color bg-gray"></div>
+                                        <span>Other (5%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">User Activity</h3>
+                            <p class="card-description">Active users over time</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="activity-chart" id="activity-chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Tab -->
+                <div class="tab-content" id="reports">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Reports</h3>
+                            <p class="card-description">View and download reports from the last 30 days.</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="reports-list">
+                                <div class="report-item">
+                                    <div class="report-info">
+                                        <p class="report-name">Q3 Financial Summary</p>
+                                        <p class="report-date">Oct 15, 2023</p>
+                                    </div>
+                                    <div class="report-actions">
+                                        <span class="report-size">2.4 MB</span>
+                                        <button class="download-btn">Download</button>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-info">
+                                        <p class="report-name">Monthly Sales Report</p>
+                                        <p class="report-date">Oct 1, 2023</p>
+                                    </div>
+                                    <div class="report-actions">
+                                        <span class="report-size">3.1 MB</span>
+                                        <button class="download-btn">Download</button>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-info">
+                                        <p class="report-name">Customer Acquisition</p>
+                                        <p class="report-date">Sep 28, 2023</p>
+                                    </div>
+                                    <div class="report-actions">
+                                        <span class="report-size">1.8 MB</span>
+                                        <button class="download-btn">Download</button>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-info">
+                                        <p class="report-name">Product Performance</p>
+                                        <p class="report-date">Sep 15, 2023</p>
+                                    </div>
+                                    <div class="report-actions">
+                                        <span class="report-size">4.2 MB</span>
+                                        <button class="download-btn">Download</button>
+                                    </div>
+                                </div>
+                                <div class="report-item">
+                                    <div class="report-info">
+                                        <p class="report-name">Marketing Campaign Results</p>
+                                        <p class="report-date">Sep 10, 2023</p>
+                                    </div>
+                                    <div class="report-actions">
+                                        <span class="report-size">2.9 MB</span>
+                                        <button class="download-btn">Download</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">System Logs</h3>
+                            <p class="card-description">Recent system activity</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="logs-list">
+                                <div class="log-item">
+                                    <span class="log-time">Today, 14:23</span>
+                                    <span class="log-level success">SUCCESS</span>
+                                    <span class="log-message">Database backup completed</span>
+                                </div>
+                                <div class="log-item">
+                                    <span class="log-time">Today, 13:45</span>
+                                    <span class="log-level warning">WARNING</span>
+                                    <span class="log-message">High CPU usage detected</span>
+                                </div>
+                                <div class="log-item">
+                                    <span class="log-time">Today, 11:32</span>
+                                    <span class="log-level info">INFO</span>
+                                    <span class="log-message">User john@example.com logged in</span>
+                                </div>
+                                <div class="log-item">
+                                    <span class="log-time">Today, 10:15</span>
+                                    <span class="log-level error">ERROR</span>
+                                    <span class="log-message">Payment gateway timeout</span>
+                                </div>
+                                <div class="log-item">
+                                    <span class="log-time">Yesterday, 18:05</span>
+                                    <span class="log-level info">INFO</span>
+                                    <span class="log-message">System update scheduled</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

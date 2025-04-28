@@ -13,13 +13,13 @@ public class ViewController {
         return ResponseEntity.ok("Hello From the RolebasedResourceServerApplication");
     }
 
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login.html";
+    @GetMapping("dashboard")
+    public String showDashboard() {
+        return "html/user_dashboard.html";
     }
 
-    @GetMapping("/testLogin")
-    public String testLoginPage() {
-        return "login.html";
+    @GetMapping("dashboard_testing")
+    public ResponseEntity<String> showDashboardTesting() {
+        return ResponseEntity.ok("Hello this is testing");
     }
 }
