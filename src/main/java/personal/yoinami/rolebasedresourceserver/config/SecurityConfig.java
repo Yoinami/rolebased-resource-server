@@ -17,7 +17,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain enableSecurity(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.authorizeHttpRequests(req -> req.anyRequest().fullyAuthenticated());
+        httpSecurity.authorizeHttpRequests(req -> {
+//             req.
+//                     requestMatchers("/").permitAll()
+//                     .requestMatchers("/**").fullyAuthenticated()
+//                     .anyRequest().denyAll();
+
+            req
+                    .requestMatchers("/").permitAll()
+                    .anyRequest().fullyAuthenticated();
+        });
 
         httpSecurity.oauth2Client(Customizer.withDefaults());
         httpSecurity.oauth2Login(config -> {
