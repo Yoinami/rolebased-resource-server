@@ -975,13 +975,6 @@ td {
     align-items: center;
 }
 
-.product-image {
-    width: 40px;
-    height: 40px;
-    background-color: var(--border-color);
-    border-radius: 0.25rem;
-    margin-right: 0.75rem;
-}
 
 .product-info {
     display: flex;

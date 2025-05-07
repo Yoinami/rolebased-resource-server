@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Orders</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+<div class="dashboard">
+  <!-- Mobile Header -->
+  <header class="header">
+    <button id="sidebar-toggle" class="sidebar-toggle">
+      <i data-lucide="menu"></i>
+      <span class="sr-only">Toggle Menu</span>
+    </button>
+    <h1 class="header-title">User Dashboard</h1>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2 class="company-name">Acme Inc</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/user/dashboard" class="nav-item">
+        <i data-lucide="gauge"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="/user/store" class="nav-item">
+        <i data-lucide="store"></i>
+        <span>Shop</span>
+      </a>
+      <a href="/user/order" class="nav-item">
+        <i data-lucide="shopping-cart"></i>
+        <span>My Orders</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i data-lucide="heart"></i>
+        <span>Favorites</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i data-lucide="settings"></i>
+        <span>Account Settings</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="container">
+      <h2 class="page-title">My Orders</h2>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Order History</h3>
+        </div>
+        <div class="card-content">
+          <div class="orders-list">
+            <div class="order-item">
+              <div class="order-info">
+                <p class="order-id">#ORD-5523</p>
+                <p class="order-date">April 18, 2025</p>
+              </div>
+              <div class="order-products">
+                <p>Wireless Mouse, USB-C Cable</p>
+              </div>
+              <div class="order-status">
+                <span class="status-badge in-progress">In Progress</span>
+              </div>
+              <div class="order-total">$54.99</div>
+              <div class="order-actions">
+                <button class="view-btn">View Details</button>
+              </div>
+            </div>
+
+            <div class="order-item">
+              <div class="order-info">
+                <p class="order-id">#ORD-5400</p>
+                <p class="order-date">March 12, 2025</p>
+              </div>
+              <div class="order-products">
+                <p>Bluetooth Speaker</p>
+              </div>
+              <div class="order-status">
+                <span class="status-badge delivered">Delivered</span>
+              </div>
+              <div class="order-total">$79.99</div>
+              <div class="order-actions">
+                <button class="view-btn">View Details</button>
+              </div>
+            </div>
+            <!-- Add more orders as needed -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  lucide.createIcons();
+</script>
+<script src="/js/script.js"></script>
+</body>
+</html>

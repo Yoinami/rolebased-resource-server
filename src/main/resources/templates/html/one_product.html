@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Product Details</title>
+    <style>
+        /* styles.css */
+
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .product-page {
+            max-width: 960px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-title {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            display: none; /* Hide on larger screens */
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr; /* Stack on smaller screens */
+            gap: 20px;
+        }
+
+        .product-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .product-image-large {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image-large img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: #28a745;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .product-description {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .product-features {
+            margin-bottom: 25px;
+        }
+
+        .product-features h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .product-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-features li {
+            margin-bottom: 8px;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-features li i {
+            margin-right: 8px;
+            color: #007bff;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .product-btn,
+        .buy-now-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-btn {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .buy-now-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .product-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .buy-now-btn:hover {
+            background-color: #1e7e34;
+        }
+
+        .product-meta {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .product-meta p {
+            margin-bottom: 5px;
+        }
+
+        .related-products-section {
+            margin-top: 40px;
+        }
+
+        .related-products-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .product-card .product-image {
+            background-color: #ddd; /* Placeholder background */
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-card .product-image img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .product-card .product-title {
+            font-size: 1rem;
+            margin: 10px 15px 5px;
+            color: #333;
+        }
+
+        .product-card .product-price {
+            font-size: 1.1rem;
+            color: #28a745;
+            margin: 0 15px 10px;
+            font-weight: bold;
+        }
+
+        .product-card .product-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border-radius: 0 0 8px 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card .product-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 1.2rem;
+            }
+
+            .sidebar-toggle {
+                display: block; /* Show on smaller screens */
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .product-details {
+                grid-template-columns: 1fr;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .product-btn,
+            .buy-now-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="product-page">
+    <!-- Mobile Header -->
+    <header class="header">
+        <button id="sidebar-toggle" class="sidebar-toggle">
+            <i data-lucide="menu"></i>
+            <span class="sr-only">Toggle Menu</span>
+        </button>
+        <h1 class="header-title">Product Details</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="product-details-grid">
+                <!-- Product Image -->
+                <div class="product-image-large">
+                    <i data-lucide="watch"></i>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info">
+                    <h2 class="product-title" th:text="${product.getName()}"></h2>
+                    <p class="product-price">$89.99</p>
+                    <p class="product-description" th:text="${product.getDetail()}"></p>
+
+
+                    <!-- Features -->
+                    <ul class="product-features">
+                        <li th:each="spec : ${product.getProductSpecification()}">
+                            <i data-lucide="check"></i>
+                            <span th:text="${spec.getAttribute().getName()}"></span> :
+                            <span th:text="${spec.getValue()}"></span>
+                        </li>
+                    </ul>
+
+                    <!-- Actions -->
+                    <div class="product-actions">
+                        <button class="product-btn">Add to Cart</button>
+                        <button class="buy-now-btn">Buy Now</button>
+                    </div>
+
+                    <!-- Meta Info -->
+                    <div class="product-meta">
+                        <p><strong>SKU:</strong> EB-2023</p>
+                        <p><strong>Category:</strong> Electronics</p>
+                        <p><strong>Tags:</strong> Audio, Wireless, Earbuds</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+    lucide.createIcons();
+</script>
+<script src="/js/script.js"></script>
+</body>
+</html>

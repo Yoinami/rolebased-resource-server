@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Dashboard</title>
   <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-icons@latest/dist/umd/lucide.min.css">
 </head>
 <body>
 <div class="dashboard">
+  <p th:text="${hello}"></p>
   <!-- Mobile Header -->
   <header class="header">
     <button id="sidebar-toggle" class="sidebar-toggle">
@@ -24,21 +24,21 @@
       <h2 class="company-name">Acme Inc</h2>
     </div>
     <nav class="sidebar-nav">
-      <a href="#" class="nav-item">
-        <i data-lucide="credit-card"></i>
-        <span>My Subscriptions</span>
+      <a href="/user/dashboard" class="nav-item">
+        <i data-lucide="gauge"></i>
+        <span>Dashboard</span>
       </a>
-      <a href="#" class="nav-item">
+      <a href="/user/store" class="nav-item">
+        <i data-lucide="store"></i>
+        <span>Shop</span>
+      </a>
+      <a href="/user/order" class="nav-item">
         <i data-lucide="shopping-cart"></i>
         <span>My Orders</span>
       </a>
       <a href="#" class="nav-item">
         <i data-lucide="heart"></i>
         <span>Favorites</span>
-      </a>
-      <a href="#" class="nav-item">
-        <i data-lucide="message-square"></i>
-        <span>Messages</span>
       </a>
       <a href="#" class="nav-item">
         <i data-lucide="settings"></i>
@@ -59,6 +59,7 @@
         </div>
 
         <!-- Overview Tab -->
+
         <div class="tab-content active" id="overview">
           <div class="welcome-banner">
             <h2>Welcome back, John!</h2>

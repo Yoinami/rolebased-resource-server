@@ -3,6 +3,7 @@ package personal.yoinami.rolebasedresourceserver.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "product_attributes")
 public class ProductAttribute {
 
     @Id
@@ -13,11 +14,39 @@ public class ProductAttribute {
     @JoinColumn(name = "attribute_id")
     private Attribute attribute;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    private int product_id;
 
     private String value;
 
-    // Getters, setters, etc.
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
+    }
+
+    public Integer getProductAttributeId() {
+        return productAttributeId;
+    }
+
+    public void setProductAttributeId(Integer productAttributeId) {
+        this.productAttributeId = productAttributeId;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public int getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
+    }
 }
