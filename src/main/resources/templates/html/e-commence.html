@@ -88,7 +88,7 @@
                     <div class="product-image icon-center"><i data-lucide="earbuds"></i></div>
                     <h4 class="product-title" th:text="${product.name}">No Name</h4>
                     <p class="product-price">$19.99</p>
-                    <button class="product-btn">Add to Cart</button>
+                    <form method="post" th:action="@{'/product/add/' + ${product.getProductId()}}"><button class="product-btn" type="submit">Add to Cart</button></form>
                     <a th:href="@{'/product/' + ${product.getProductId()}}"><button class="product-btn">View Detail</button></a>
                 </div>
 
