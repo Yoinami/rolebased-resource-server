@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title>Confirm Order - Acme Inc</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <style>
+        .order-summary, .thank-you {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        .order-summary h2, .thank-you h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .order-total {
+            font-weight: bold;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .btn-confirm {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .btn-confirm:hover {
+            background-color: #218838;
+        }
+        .thank-you {
+            display: none;
+            text-align: center;
+        }
+        .thank-you i {
+            color: #28a745;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+    <header class="header">
+        <button id="sidebar-toggle" class="sidebar-toggle">
+            <i data-lucide="menu"></i>
+        </button>
+        <h1 class="header-title">Confirm Order</h1>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 class="company-name">Acme Inc</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/user/dashboard" class="nav-item"><i data-lucide="gauge"></i>Dashboard</a>
+            <a href="/user/store" class="nav-item"><i data-lucide="store"></i>Shop</a>
+            <a href="/user/order" class="nav-item active"><i data-lucide="shopping-cart"></i>My Orders</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="container">
+
+            <!-- Order Summary Section -->
+            <div class="order-summary" id="order-summary">
+                <h2>Order Summary</h2>
+                <div class="order-item" th:each="item : ${shopping_cart}">
+                    <div class="order-info">
+                        <p class="order-id">#ORD-<span th:text="${item.getCartItemId()}">5432</span></p>
+                        <p class="order-date" th:text="${#dates.format(item.getUpdatedAt(), 'MMM dd, yyyy')}">... 00, 0000</p>
+                    </div>
+                    <div class="order-products">
+                        <p th:text="'Product ID: ' + ${item.getProductId()}"></p>
+                    </div>
+                    <div class="order-total">
+                        <span th:text="'Qty: ' + ${item.getQuantity()}">$null</span>
+                    </div>
+                </div>
+                <div class="order-item order-total"><span>Total</span><span>$69.98</span>
+                </div>
+                <button type="submit" onclick="placeOrder()">Place Your Order</button>
+            </div>
+
+            <!-- Thank You Message -->
+            <div class="thank-you" id="thank-you">
+                <i data-lucide="check-circle"></i>
+                <h2>Thank you for your order!</h2>
+                <p>Your package is being prepared and will be shipped shortly. You will receive a confirmation email soon.</p>
+                <a href="/user/order" class="btn-confirm" style="background-color:#007bff;">View My Orders</a>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+    lucide.createIcons();
+
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+    function placeOrder() {
+        fetch('/order/confirm', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}) // or pass data if needed
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Hide summary and show thank-you
+                    document.getElementById('order-summary').style.display = 'none';
+                    document.getElementById('thank-you').style.display = 'block';
+                } else {
+                    alert("Failed to place order.");
+                }
+            })
+            .catch(error => {
+                console.error("Error placing order:", error);
+                alert("An error occurred.");
+            });
+    }
+</script>
+</body>
+</html>

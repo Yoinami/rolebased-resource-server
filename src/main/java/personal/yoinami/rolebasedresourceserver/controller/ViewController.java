@@ -1,16 +1,22 @@
 package personal.yoinami.rolebasedresourceserver.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import personal.yoinami.rolebasedresourceserver.service.ShoppingCardService;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class ViewController {
+
+    @Autowired
+    ShoppingCardService shoppingCardService;
 
     @GetMapping("/")
     public String landingPage() {
@@ -46,5 +52,14 @@ public class ViewController {
 
         return defaultOidcUser.getClaims();
 
+    }
+
+    @ResponseBody
+    @GetMapping("cart")
+    public List<?> shopping_cart() {
+        DefaultOidcUser defaultOidcUser = (DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        System.out.println(defaultOidcUser.getName());
+        return shoppingCardService.getShoppingCard(defaultOidcUser.getName()).get();
     }
 }

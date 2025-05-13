@@ -8,7 +8,6 @@
 </head>
 <body>
 <div class="dashboard">
-  <p th:text="${hello}"></p>
   <!-- Mobile Header -->
   <header class="header">
     <button id="sidebar-toggle" class="sidebar-toggle">
@@ -62,7 +61,7 @@
 
         <div class="tab-content active" id="overview">
           <div class="welcome-banner">
-            <h2>Welcome back, John!</h2>
+            <h2>Welcome back</h2>
             <p>Here's what's happening with your account today.</p>
           </div>
 
@@ -195,54 +194,26 @@
             <div class="card-header">
               <h3 class="card-title">Shopping Card</h3>
             </div>
+            <form th:action="@{'/order/confirm'}" method="get">
+              <button type="submit">Order Now</button>
+            </form>
             <div class="card-content">
               <div class="orders-list">
-                <div class="order-item">
+                <div class="order-item" th:each="item : ${shopping_cart}">
                   <div class="order-info">
-                    <p class="order-id">#ORD-5523</p>
-                    <p class="order-date">Oct 15, 2023</p>
+                    <p class="order-id">#ORD-<span th:text="${item.getCartItemId()}">5432</span></p>
+                    <p class="order-date" th:text="${#dates.format(item.getUpdatedAt(), 'MMM dd, yyyy')}">... 00, 0000</p>
                   </div>
                   <div class="order-products">
-                    <p>Wireless Headphones, USB-C Cable</p>
+                    <p th:text="'Product ID: ' + ${item.getProductId()}"></p>
                   </div>
-                  <div class="order-status">
-                    <span class="status-badge in-progress">In Progress</span>
+                  <div class="order-total">
+                    <span th:text="'Qty: ' + ${item.getQuantity()}">$null</span>
                   </div>
-                  <div class="order-total">$129.99</div>
                   <div class="order-actions">
-                    <button class="view-btn">View Details</button>
-                  </div>
-                </div>
-                <div class="order-item">
-                  <div class="order-info">
-                    <p class="order-id">#ORD-5489</p>
-                    <p class="order-date">Oct 10, 2023</p>
-                  </div>
-                  <div class="order-products">
-                    <p>Smart Watch, Charging Dock</p>
-                  </div>
-                  <div class="order-status">
-                    <span class="status-badge delivered">Delivered</span>
-                  </div>
-                  <div class="order-total">$249.99</div>
-                  <div class="order-actions">
-                    <button class="view-btn">View Details</button>
-                  </div>
-                </div>
-                <div class="order-item">
-                  <div class="order-info">
-                    <p class="order-id">#ORD-5432</p>
-                    <p class="order-date">Sep 28, 2023</p>
-                  </div>
-                  <div class="order-products">
-                    <p>Bluetooth Speaker</p>
-                  </div>
-                  <div class="order-status">
-                    <span class="status-badge delivered">Delivered</span>
-                  </div>
-                  <div class="order-total">$79.99</div>
-                  <div class="order-actions">
-                    <button class="view-btn">View Details</button>
+                    <a th:href="@{'/product/' + ${item.getProductId()}}">
+                      <button class="view-btn">View Details</button>
+                    </a>
                   </div>
                 </div>
               </div>

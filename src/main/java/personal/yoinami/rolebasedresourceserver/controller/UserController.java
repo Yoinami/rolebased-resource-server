@@ -10,8 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import personal.yoinami.rolebasedresourceserver.model.Product;
+import personal.yoinami.rolebasedresourceserver.model.ShoppingCard;
 import personal.yoinami.rolebasedresourceserver.service.ProductService;
+import personal.yoinami.rolebasedresourceserver.service.ShoppingCardService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,9 +24,20 @@ public class UserController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ShoppingCardService shoppingCardService;
+
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        model.addAttribute("user", (OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        OAuth2User current_user = (OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        List<ShoppingCard> shoppingCardList =  shoppingCardService.getShoppingCard(
+                current_user.getName()).orElse(new ArrayList<>()
+        );
+
+        model.addAttribute("user", current_user);
+        model.addAttribute("shopping_cart", shoppingCardList);
+
         return "html/user_dashboard";
     }
 

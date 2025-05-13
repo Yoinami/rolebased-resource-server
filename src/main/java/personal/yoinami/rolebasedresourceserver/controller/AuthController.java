@@ -1,13 +1,12 @@
 package personal.yoinami.rolebasedresourceserver.controller;
 
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,5 +27,13 @@ public class AuthController {
     public Map<String, Object> token() {
         OAuth2User user = ((OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return user.getAttributes();
+    }
+
+    @ResponseBody
+    @GetMapping("roles")
+    public String roles() {
+        System.out.println((Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+
+        return "watch console";
     }
 }

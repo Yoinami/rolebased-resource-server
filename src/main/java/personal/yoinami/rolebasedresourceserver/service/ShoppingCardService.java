@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import personal.yoinami.rolebasedresourceserver.model.ShoppingCard;
 import personal.yoinami.rolebasedresourceserver.repository.ShoppingCardRepository;
 
-import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShoppingCardService {
@@ -18,17 +18,18 @@ public class ShoppingCardService {
     @Autowired
     ShoppingCardRepository shoppingCardRepository;
 
-    public List<ShoppingCard> getShoppingCard(String user_id) {
+    public Optional<List<ShoppingCard>> getShoppingCard(String user_id) {
         return shoppingCardRepository.findShoppingCardsByUserId(user_id);
     }
 
-    public ShoppingCard addProductToShoppingCard(int product_id, int quantity) throws SQLIntegrityConstraintViolationException {
+    public ShoppingCard addProductToShoppingCart(int product_id, int quantity) throws SQLIntegrityConstraintViolationException {
 
         ShoppingCard sc = new ShoppingCard();
         sc.setProductId(product_id);
         sc.setQuantity(quantity);
         OAuth2User oAuth2User= (OAuth2User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         sc.setUserId(oAuth2User.getName());
+
         try {
             return shoppingCardRepository.save(sc);
         } catch (Exception exception) {
@@ -36,7 +37,7 @@ public class ShoppingCardService {
         }
     }
 
-    public ShoppingCard addProductToShoppingCard(int product_id)  throws SQLIntegrityConstraintViolationException {
-        return this.addProductToShoppingCard(product_id, 1);
+    public ShoppingCard addProductToShoppingCart(int product_id)  throws SQLIntegrityConstraintViolationException {
+        return this.addProductToShoppingCart(product_id, 1);
     }
 }

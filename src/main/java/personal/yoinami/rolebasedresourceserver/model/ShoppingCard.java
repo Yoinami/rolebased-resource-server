@@ -5,7 +5,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 @Table(name = "shopping_carts")
@@ -13,7 +12,7 @@ public class ShoppingCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer cardItemId;
+    private Integer cartItemId;
 
     String userId;
 
@@ -36,12 +35,12 @@ public class ShoppingCard {
         this.addedAt = addedAt;
     }
 
-    public Integer getCardItemId() {
-        return cardItemId;
+    public Integer getCartItemId() {
+        return cartItemId;
     }
 
-    public void setCardItemId(Integer cardItemId) {
-        this.cardItemId = cardItemId;
+    public void setCartItemId(Integer cartItemId) {
+        this.cartItemId = cartItemId;
     }
 
     public Integer getProductId() {

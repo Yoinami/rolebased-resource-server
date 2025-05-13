@@ -1,12 +1,11 @@
 package personal.yoinami.rolebasedresourceserver.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import personal.yoinami.rolebasedresourceserver.model.Product;
-import personal.yoinami.rolebasedresourceserver.model.ShoppingCard;
 import personal.yoinami.rolebasedresourceserver.service.ProductService;
 import personal.yoinami.rolebasedresourceserver.service.ShoppingCardService;
 
@@ -26,16 +25,23 @@ public class ProductController {
 
     @GetMapping("{id}")
     public String getSingleProductPage(
-            @PathVariable int id, Model model, @RequestParam String message, @RequestParam String type) {
+            @PathVariable int id,
+            Model model,
+            @RequestParam(defaultValue = "") String message,
+            @RequestParam(defaultValue = "") String type) {
 
         Optional<Product> optionalProduct = productService.findById(id);
         if(optionalProduct.isPresent()) {
+            if(message.isBlank() || type.isBlank()) {
+                message = null;
+                type = null;
+            }
             model.addAttribute("message", message);
             model.addAttribute("type", type);
             model.addAttribute("product", optionalProduct.get());
             return "/html/one_product";
         }
-        return "/html/logins";
+        return "/html/login";
     }
 
     @ResponseBody
@@ -52,12 +58,18 @@ public class ProductController {
     }
 
     @PostMapping("add/{id}")
-    public String addProductToShoppingCard(@PathVariable int id) {
+    public String addProductToShoppingCard(@PathVariable int id, HttpServletRequest request) {
+        String referrer = request.getHeader("referer");
+        String redirect_url = (referrer != null) ? referrer : "/product/" + Integer.toString(id);
+        if(redirect_url.contains("?")) redirect_url = redirect_url.substring(0, redirect_url.indexOf("?"));
+        redirect_url = "redirect:" + redirect_url.replaceFirst("https?://[^/]+", "");
+        System.out.println(redirect_url.replaceFirst("https?://[^/]+", ""));
+
         try {
-            shoppingCardService.addProductToShoppingCard(id);
+            shoppingCardService.addProductToShoppingCart(id);
         } catch (SQLIntegrityConstraintViolationException sqlIntegrityException) {
-            return "redirect:/product/" + Integer.toString(id) + "?message=Item Already in the Cart&type=failed";
+            return redirect_url + "?message=Item Already in the Cart&type=failed";
         }
-        return "redirect:/product/" + Integer.toString(id) + "?message=Successfully Added&type=success";
+        return redirect_url + "?message=Successfully Added&type=success";
     }
 }
