@@ -28,7 +28,8 @@ public class ProductController {
             @PathVariable int id,
             Model model,
             @RequestParam(defaultValue = "") String message,
-            @RequestParam(defaultValue = "") String type) {
+            @RequestParam(defaultValue = "") String type
+    ) {
 
         Optional<Product> optionalProduct = productService.findById(id);
         if(optionalProduct.isPresent()) {
@@ -39,7 +40,7 @@ public class ProductController {
             model.addAttribute("message", message);
             model.addAttribute("type", type);
             model.addAttribute("product", optionalProduct.get());
-            return "/html/one_product";
+            return "/html/user/one_product";
         }
         return "/html/login";
     }

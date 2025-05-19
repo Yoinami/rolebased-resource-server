@@ -8,7 +8,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 @Configuration
@@ -16,16 +25,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain enableSecurity(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain enableSecurity(
+            HttpSecurity httpSecurity, GrantedAuthoritiesMapper userAuthoritiesMapper) throws Exception {
 
         httpSecurity.authorizeHttpRequests(req -> {
-//             req.
-//                     requestMatchers("/").permitAll()
-//                     .requestMatchers("/**").fullyAuthenticated()
-//                     .anyRequest().denyAll();
 
             req
-                    .requestMatchers("/").permitAll()
+                    .requestMatchers("/user/**").hasRole("buyer")
+                    .requestMatchers("/**").permitAll()
                     .anyRequest().fullyAuthenticated();
         });
 
@@ -34,10 +41,12 @@ public class SecurityConfig {
         httpSecurity.oauth2Client(Customizer.withDefaults());
         httpSecurity.oauth2Login(config -> {
             config.tokenEndpoint(Customizer.withDefaults());
-            config.userInfoEndpoint(Customizer.withDefaults());
+            config.userInfoEndpoint(endPoint -> endPoint.userAuthoritiesMapper(userAuthoritiesMapper));
         })
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
 
         return httpSecurity.build();
     }
+
+
 }

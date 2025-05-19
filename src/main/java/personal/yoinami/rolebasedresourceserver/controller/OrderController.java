@@ -22,6 +22,7 @@ public class OrderController {
 
     @Autowired
     ShoppingCardService shoppingCardService;
+
     @Autowired
     private OrderService orderService;
 
@@ -33,7 +34,7 @@ public class OrderController {
 
         model.addAttribute("shopping_cart", shoppingCardOptional.get());
 
-        return "html/order_confirm";
+        return "html/user/order_confirm";
     }
 
     @PostMapping("confirm")

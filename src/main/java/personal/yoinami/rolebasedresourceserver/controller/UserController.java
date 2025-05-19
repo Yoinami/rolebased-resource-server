@@ -2,7 +2,6 @@ package personal.yoinami.rolebasedresourceserver.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -38,19 +37,19 @@ public class UserController {
         model.addAttribute("user", current_user);
         model.addAttribute("shopping_cart", shoppingCardList);
 
-        return "html/user_dashboard";
+        return "html/user/user_dashboard";
     }
 
     @GetMapping("/store")
     public String store(Model model) {
         List<Product> listOfAllProducts = productService.getAllProducts();
         model.addAttribute("products", listOfAllProducts);
-        return "html/e-commence";
+        return "html/user/e-commence";
     }
 
     @GetMapping("/order")
     public String order(Model model) {
-        return "html/user-orders";
+        return "html/user/user-orders";
     }
 
 
