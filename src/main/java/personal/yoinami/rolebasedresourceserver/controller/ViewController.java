@@ -30,8 +30,7 @@ public class ViewController {
     // Testing Endpoints
     @GetMapping("/")
     public String landingPage() {
-        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) return "/html/login";
-        return "redirect:/user/dashboard";
+        return "/html/landingPage";
     }
 
 //    @SuppressWarnings("viewName")

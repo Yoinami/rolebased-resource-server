@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("product")
-public class ProductController {
+@RequestMapping("/user/product")
+public class UserProductController {
 
     @Autowired
     ProductService productService;
