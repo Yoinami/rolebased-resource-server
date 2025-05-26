@@ -1,9 +1,13 @@
 package personal.yoinami.rolebasedresourceserver.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Table(name = "attributes")
+@Data
 public class Attribute {
 
     @Id
@@ -15,37 +19,4 @@ public class Attribute {
     private Boolean nullable;
 
     private String type;
-
-
-    public Integer getAttributeId() {
-        return attributeId;
-    }
-
-    public void setAttributeId(Integer attributeId) {
-        this.attributeId = attributeId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Boolean getNullable() {
-        return nullable;
-    }
-
-    public void setNullable(Boolean nullable) {
-        this.nullable = nullable;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

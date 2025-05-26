@@ -19,10 +19,105 @@
             height: 48px;
             stroke-width: 1.5;
         }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 400px;
+            max-width: 90%;
+            position: relative;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-top: 1rem;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.25rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .modal-submit-btn {
+            margin-top: 1.5rem;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 0.75rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
 <div class="dashboard">
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <h2>Add New Product</h2>
+            <form id="addProductForm" method="post" action="/user/product/create">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="name" required>
+                
+                <label for="productCategory">Category</label>
+                <input type="text" id="productCategory" name="category" required>
+
+                <label for="productSpecification">Specification</label>
+                <input type="text" id="productSpecification" name="specification" required>
+
+                <label for="productSku">Details</label>
+                <input type="text" id="productSku" name="sku" required>
+
+                <label for="productPrice">Price ($)</label>
+                <input type="number" id="productPrice" name="price" step="0.01" required>
+
+                <label for="productStock">Stock</label>
+                <input type="number" id="productStock" name="stock" required>
+
+                <button type="submit" class="modal-submit-btn">Add Product</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Mobile Header -->
     <header class="header">
         <button id="sidebar-toggle" class="sidebar-toggle">
@@ -32,31 +127,34 @@
         <h1 class="header-title">Shop</h1>
     </header>
 
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2 class="company-name">Acme Inc</h2>
         </div>
         <nav class="sidebar-nav">
-            <a href="/user/dashboard" class="nav-item">
-                <i data-lucide="gauge"></i>
-                <span>Dashboard</span>
+            <a href="/merchant/dashboard" class="nav-item">
+                <i data-lucide="shopping-bag"></i>
+                <span>Merchant Dashboard</span>
             </a>
-            <a href="/user/store" class="nav-item active">
-                <i data-lucide="store"></i>
-                <span>Shop</span>
-            </a>
-            <a href="/user/order" class="nav-item">
-                <i data-lucide="shopping-cart"></i>
-                <span>My Orders</span>
+            <a href="/merchant/products" class="nav-item active">
+                <i data-lucide="package"></i>
+                <span>Products</span>
             </a>
             <a href="#" class="nav-item">
-                <i data-lucide="heart"></i>
-                <span>Favorites</span>
+                <i data-lucide="shopping-cart"></i>
+                <span>Orders</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i data-lucide="users"></i>
+                <span>Customers</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i data-lucide="credit-card"></i>
+                <span>Transactions</span>
             </a>
             <a href="#" class="nav-item">
                 <i data-lucide="settings"></i>
-                <span>Account Settings</span>
+                <span>Store Settings</span>
             </a>
         </nav>
     </aside>
@@ -93,6 +191,161 @@
                 </div>
 
             </div>
+            <!-- Products Tab -->
+            <div style="padding-top: 5%" id="products">
+                <div class="products-header">
+                    <div class="search-container">
+                        <input type="text" placeholder="Search products..." class="search-input">
+                        <button class="search-btn">
+                            <i data-lucide="search"></i>
+                        </button>
+                    </div>
+                    <button class="add-product-btn">
+                        <i data-lucide="plus"></i> Add Product
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="products-table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>SKU</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="product-cell">
+                                            <div class="product-image"></div>
+                                            <div class="product-info">
+                                                <p class="product-name">Wireless Headphones</p>
+                                                <p class="product-id">ID: PRD-001</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>WH-BLK-001</td>
+                                    <td>Electronics</td>
+                                    <td>$129.99</td>
+                                    <td>45</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>
+                                        <button class="action-btn">
+                                            <i data-lucide="edit"></i>
+                                        </button>
+                                        <button class="action-btn">
+                                            <i data-lucide="trash-2"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-cell">
+                                            <div class="product-image"></div>
+                                            <div class="product-info">
+                                                <p class="product-name">Smart Watch</p>
+                                                <p class="product-id">ID: PRD-002</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>SW-BLK-001</td>
+                                    <td>Electronics</td>
+                                    <td>$249.99</td>
+                                    <td>32</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>
+                                        <button class="action-btn">
+                                            <i data-lucide="edit"></i>
+                                        </button>
+                                        <button class="action-btn">
+                                            <i data-lucide="trash-2"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-cell">
+                                            <div class="product-image"></div>
+                                            <div class="product-info">
+                                                <p class="product-name">Bluetooth Speaker</p>
+                                                <p class="product-id">ID: PRD-003</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>BS-BLU-001</td>
+                                    <td>Electronics</td>
+                                    <td>$79.99</td>
+                                    <td>18</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>
+                                        <button class="action-btn">
+                                            <i data-lucide="edit"></i>
+                                        </button>
+                                        <button class="action-btn">
+                                            <i data-lucide="trash-2"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-cell">
+                                            <div class="product-image"></div>
+                                            <div class="product-info">
+                                                <p class="product-name">Fitness Tracker</p>
+                                                <p class="product-id">ID: PRD-004</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>FT-BLK-001</td>
+                                    <td>Electronics</td>
+                                    <td>$79.99</td>
+                                    <td>24</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>
+                                        <button class="action-btn">
+                                            <i data-lucide="edit"></i>
+                                        </button>
+                                        <button class="action-btn">
+                                            <i data-lucide="trash-2"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="product-cell">
+                                            <div class="product-image"></div>
+                                            <div class="product-info">
+                                                <p class="product-name">Wireless Earbuds</p>
+                                                <p class="product-id">ID: PRD-005</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>WE-WHT-001</td>
+                                    <td>Electronics</td>
+                                    <td>$89.99</td>
+                                    <td>12</td>
+                                    <td><span class="status-badge low-stock">Low Stock</span></td>
+                                    <td>
+                                        <button class="action-btn">
+                                            <i data-lucide="edit"></i>
+                                        </button>
+                                        <button class="action-btn">
+                                            <i data-lucide="trash-2"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </div>
@@ -102,6 +355,27 @@
 <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
     lucide.createIcons();
+</script>
+<script>
+    // Modal toggle logic
+    const modal = document.getElementById("addProductModal");
+    const openBtn = document.querySelector(".add-product-btn");
+    const closeBtn = document.getElementById("closeModal");
+
+    openBtn.addEventListener("click", () => {
+        modal.classList.remove("hidden");
+    });
+
+    closeBtn.addEventListener("click", () => {
+        modal.classList.add("hidden");
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.add("hidden");
+        }
+    });
+
 </script>
 <script src="/js/script.js"></script>
 </body>

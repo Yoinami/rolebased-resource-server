@@ -9,7 +9,4 @@ import personal.yoinami.rolebasedresourceserver.model.ProductAttribute;
 import java.util.List;
 
 public interface ProductAttributeRepository extends JpaRepository<ProductAttribute, Integer> {
-    @Query("SELECT pa FROM ProductAttribute pa WHERE pa.product_id = :productId")
-    List<ProductAttribute> findAllByProductId(@Param("productId") int productId);
-
 }

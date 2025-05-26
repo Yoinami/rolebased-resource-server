@@ -23,7 +23,7 @@ public class UserProductController {
     @Autowired
     ShoppingCardService shoppingCardService;
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public String getSingleProductPage(
             @PathVariable int id,
             Model model,

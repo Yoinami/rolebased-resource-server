@@ -16,20 +16,13 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    @Autowired
-    ProductAttributeRepository productAttributeRepository;
-
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
     public Optional<Product> findById(int product_id) {
-        List<ProductAttribute> productAttributeList = productAttributeRepository.findAllByProductId(product_id);
         Optional<Product> productOptional = productRepository.findById(product_id);
-
         Product product = productOptional.orElse(new Product());
-        product.setProductSpecification(productAttributeList);
-
         return productOptional;
     }
 }

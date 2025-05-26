@@ -1,9 +1,17 @@
 package personal.yoinami.rolebasedresourceserver.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "product_attributes")
+@Getter
+@Setter
 public class ProductAttribute {
 
     @Id
@@ -14,39 +22,10 @@ public class ProductAttribute {
     @JoinColumn(name = "attribute_id")
     private Attribute attribute;
 
-    private int product_id;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    @JsonBackReference
+    private Product product;
 
     private String value;
-
-    public Attribute getAttribute() {
-        return attribute;
-    }
-
-    public void setAttribute(Attribute attribute) {
-        this.attribute = attribute;
-    }
-
-    public Integer getProductAttributeId() {
-        return productAttributeId;
-    }
-
-    public void setProductAttributeId(Integer productAttributeId) {
-        this.productAttributeId = productAttributeId;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public int getProduct_id() {
-        return product_id;
-    }
-
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
-    }
 }

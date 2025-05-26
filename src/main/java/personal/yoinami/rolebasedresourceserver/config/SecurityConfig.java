@@ -24,7 +24,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain enableSecurity(
-            HttpSecurity httpSecurity) throws Exception {
+            HttpSecurity httpSecurity,
+            GrantedAuthoritiesMapper grantedAuthoritiesMapper) throws Exception {
 
         httpSecurity.authorizeHttpRequests(req -> {
 
@@ -39,64 +40,11 @@ public class SecurityConfig {
         httpSecurity.oauth2Client(Customizer.withDefaults());
         httpSecurity.oauth2Login(config -> {
             config.tokenEndpoint(Customizer.withDefaults());
-            config.userInfoEndpoint(endPoint -> endPoint.userAuthoritiesMapper(userAuthoritiesMapper()));
+            config.userInfoEndpoint(endPoint -> endPoint.userAuthoritiesMapper(grantedAuthoritiesMapper));
         })
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
 
         return httpSecurity.build();
     }
 
-    @Bean
-    public GrantedAuthoritiesMapper userAuthoritiesMapper() {
-        return (authorities) -> {
-            LinkedHashSet<GrantedAuthority> mappedAuthorities = new LinkedHashSet<>();
-
-            for (GrantedAuthority authority : authorities) {
-                if (authority instanceof OidcUserAuthority oidcUserAuthority) {
-                    mappedAuthorities.add(authority);
-
-                    setAuthorities(oidcUserAuthority, mappedAuthorities);
-                } else {
-                    mappedAuthorities.add(authority);
-                }
-            }
-
-            Logger log = Logger.getLogger(AuthorizationConfig.class.getName());
-            log.warning(mappedAuthorities.toString());
-            return mappedAuthorities;
-        };
-    }
-
-//    @Bean
-//    public GrantedAuthoritiesMapper userAuthoritiesMapper() {
-//        return (authorities) -> {
-//            LinkedHashSet<GrantedAuthority> mappedAuthorities = new LinkedHashSet<>();
-//
-//            mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_tester"));
-//
-//            Logger log = Logger.getLogger(AuthorizationConfig.class.getName());
-//            log.warning(mappedAuthorities.toString());
-//            return mappedAuthorities;
-//        };
-//    }
-
-    private static void setAuthorities(OidcUserAuthority oidcUserAuthority, Collection<GrantedAuthority> mappedAuthorities) {
-        Map<String, Object> attributes = oidcUserAuthority.getAttributes();
-
-        // Get realm_role
-        List<String> realmRoles = (List<String>) attributes.get("realm_role");
-        if (realmRoles != null) {
-            realmRoles.forEach(role ->
-                    mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role))
-            );
-        }
-
-        // Get client_token
-        List<String> clientRoles = (List<String>) attributes.get("client_token");
-        if (clientRoles != null) {
-            clientRoles.forEach(role ->
-                    mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role))
-            );
-        }
-    }
 }
