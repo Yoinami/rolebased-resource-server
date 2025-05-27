@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Store - Acme Inc</title>
     <link rel="stylesheet" href="/css/styles.css"/>
@@ -14,18 +14,20 @@
             background-color: #f5f5f5;
             border-radius: 8px;
         }
+
         .product-image.icon-center i {
             width: 48px;
             height: 48px;
             stroke-width: 1.5;
         }
+
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -97,7 +99,7 @@
             <form id="addProductForm" method="post" action="/user/product/create">
                 <label for="productName">Product Name</label>
                 <input type="text" id="productName" name="name" required>
-                
+
                 <label for="productCategory">Category</label>
                 <input type="text" id="productCategory" name="category" required>
 
@@ -179,18 +181,6 @@
                     </select>
                 </div>
             </div>
-
-            <div class="products-grid">
-                <!-- Product Card -->
-                <div class="product-card" th:each="product: ${products}">
-                    <div class="product-image icon-center"><i data-lucide="earbuds"></i></div>
-                    <h4 class="product-title" th:text="${product.name}">No Name</h4>
-                    <p class="product-price">$19.99</p>
-                    <form method="post" th:action="@{'/user/product/add/' + ${product.getProductId()}}"><button class="product-btn" type="submit">Add to Cart</button></form>
-                    <a th:href="@{'/user/product/' + ${product.getProductId()}}"><button class="product-btn">View Detail</button></a>
-                </div>
-
-            </div>
             <!-- Products Tab -->
             <div style="padding-top: 5%" id="products">
                 <div class="products-header">
@@ -211,136 +201,53 @@
                                 <thead>
                                 <tr>
                                     <th>Product</th>
-                                    <th>SKU</th>
                                     <th>Category</th>
                                     <th>Price</th>
                                     <th>Stock</th>
                                     <th>Status</th>
+                                    <th>Updated At</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr th:each="product : ${products}">
                                     <td>
                                         <div class="product-cell">
-                                            <div class="product-image"></div>
+                                            <div class="product-image">
+                                                <!-- Optional: Add image here if you have a field for it -->
+                                            </div>
                                             <div class="product-info">
-                                                <p class="product-name">Wireless Headphones</p>
-                                                <p class="product-id">ID: PRD-001</p>
+                                                <p class="product-name" th:text="${product.name}">Product Name</p>
+                                                <p class="product-id" th:text="'ID: ' + ${product.productId}">ID</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>WH-BLK-001</td>
-                                    <td>Electronics</td>
-                                    <td>$129.99</td>
-                                    <td>45</td>
-                                    <td><span class="status-badge active">Active</span></td>
+                                    <td th:text="${product.category}">Category</td>
+                                    <td th:text="'$' + ${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}">
+                                        Price
+                                    </td>
+                                    <td th:text="${product.stockQuantity}">Stock</td>
                                     <td>
-                                        <button class="action-btn">
+                                        <span class="status-badge"
+                                              th:classappend="${product.stockQuantity < 20} ? ' low-stock' : ' active'"
+                                              th:text="${product.stockQuantity < 20} ? 'Low Stock' : 'Active'">
+                                            Status
+                                        </span>
+                                    </td>
+                                    <td th:text="${product.getUpdatedAt()}">
+                                        Updated At
+                                    </td>
+                                    <td>
+                                        <button class="action-btn" th:attr="data-id=${product.productId}">
                                             <i data-lucide="edit"></i>
                                         </button>
-                                        <button class="action-btn">
-                                            <i data-lucide="trash-2"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="product-cell">
-                                            <div class="product-image"></div>
-                                            <div class="product-info">
-                                                <p class="product-name">Smart Watch</p>
-                                                <p class="product-id">ID: PRD-002</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>SW-BLK-001</td>
-                                    <td>Electronics</td>
-                                    <td>$249.99</td>
-                                    <td>32</td>
-                                    <td><span class="status-badge active">Active</span></td>
-                                    <td>
-                                        <button class="action-btn">
-                                            <i data-lucide="edit"></i>
-                                        </button>
-                                        <button class="action-btn">
-                                            <i data-lucide="trash-2"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="product-cell">
-                                            <div class="product-image"></div>
-                                            <div class="product-info">
-                                                <p class="product-name">Bluetooth Speaker</p>
-                                                <p class="product-id">ID: PRD-003</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>BS-BLU-001</td>
-                                    <td>Electronics</td>
-                                    <td>$79.99</td>
-                                    <td>18</td>
-                                    <td><span class="status-badge active">Active</span></td>
-                                    <td>
-                                        <button class="action-btn">
-                                            <i data-lucide="edit"></i>
-                                        </button>
-                                        <button class="action-btn">
-                                            <i data-lucide="trash-2"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="product-cell">
-                                            <div class="product-image"></div>
-                                            <div class="product-info">
-                                                <p class="product-name">Fitness Tracker</p>
-                                                <p class="product-id">ID: PRD-004</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>FT-BLK-001</td>
-                                    <td>Electronics</td>
-                                    <td>$79.99</td>
-                                    <td>24</td>
-                                    <td><span class="status-badge active">Active</span></td>
-                                    <td>
-                                        <button class="action-btn">
-                                            <i data-lucide="edit"></i>
-                                        </button>
-                                        <button class="action-btn">
-                                            <i data-lucide="trash-2"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="product-cell">
-                                            <div class="product-image"></div>
-                                            <div class="product-info">
-                                                <p class="product-name">Wireless Earbuds</p>
-                                                <p class="product-id">ID: PRD-005</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>WE-WHT-001</td>
-                                    <td>Electronics</td>
-                                    <td>$89.99</td>
-                                    <td>12</td>
-                                    <td><span class="status-badge low-stock">Low Stock</span></td>
-                                    <td>
-                                        <button class="action-btn">
-                                            <i data-lucide="edit"></i>
-                                        </button>
-                                        <button class="action-btn">
+                                        <button class="action-btn" th:attr="data-id=${product.productId}">
                                             <i data-lucide="trash-2"></i>
                                         </button>
                                     </td>
                                 </tr>
                                 </tbody>
+
                             </table>
                         </div>
                     </div>

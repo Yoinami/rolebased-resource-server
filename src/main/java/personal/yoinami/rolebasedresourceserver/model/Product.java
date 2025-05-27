@@ -24,7 +24,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
 
-    private String merchant_id;
+    private String merchantId;
 
     private String name;
 

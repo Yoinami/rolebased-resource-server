@@ -36,9 +36,9 @@ public class AuthorizationConfig {
             return mappedAuthorities;
         };
     }
+
     private static void setAuthorities(OidcUserAuthority oidcUserAuthority, Collection<GrantedAuthority> mappedAuthorities) {
         Map<String, Object> attributes = oidcUserAuthority.getAttributes();
-
         // Get realm_role
         List<String> realmRoles = (List<String>) attributes.get("realm_role");
         if (realmRoles != null) {
@@ -46,7 +46,6 @@ public class AuthorizationConfig {
                     mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role))
             );
         }
-
         // Get client_token
         List<String> clientRoles = (List<String>) attributes.get("client_token");
         if (clientRoles != null) {
@@ -55,5 +54,4 @@ public class AuthorizationConfig {
             );
         }
     }
-
 }

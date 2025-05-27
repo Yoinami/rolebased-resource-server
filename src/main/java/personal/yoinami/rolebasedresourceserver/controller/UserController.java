@@ -29,14 +29,11 @@ public class UserController {
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         OAuth2User current_user = (OAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         List<ShoppingCard> shoppingCardList =  shoppingCardService.getShoppingCard(
                 current_user.getName()).orElse(new ArrayList<>()
         );
-
         model.addAttribute("user", current_user);
         model.addAttribute("shopping_cart", shoppingCardList);
-
         return "html/user/user_dashboard";
     }
 
@@ -51,6 +48,4 @@ public class UserController {
     public String order(Model model) {
         return "html/user/user-orders";
     }
-
-
 }

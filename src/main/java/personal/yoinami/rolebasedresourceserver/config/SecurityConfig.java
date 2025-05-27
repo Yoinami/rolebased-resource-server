@@ -30,8 +30,8 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(req -> {
 
             req
-                    .requestMatchers("/user/**").hasRole("buyer")
-                    .requestMatchers("/*", "/css/**", "/js/**").permitAll()
+                  //  .requestMatchers("/user/**").hasRole("buyer")
+                   // .requestMatchers("/*", "/css/**", "/js/**").permitAll()
                     .anyRequest().fullyAuthenticated();
         });
 

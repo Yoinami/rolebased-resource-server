@@ -9,21 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import personal.yoinami.rolebasedresourceserver.component.RefererRedirect;
 import personal.yoinami.rolebasedresourceserver.model.Product;
-import personal.yoinami.rolebasedresourceserver.repository.ProductRepository;
+import personal.yoinami.rolebasedresourceserver.service.ProductService;
 
 import java.util.List;
 
 @Controller
-@RequestMapping
+@RequestMapping("/merchant/product")
 public class MerchantProductController {
 
     @Autowired
-    ProductRepository productRepository;
-
-    public String createProduct(@RequestBody Product product) {
-        productRepository.save(product);
-        return "Success";
-    }
+    ProductService productService;
 
     @ResponseBody
     @GetMapping("bruh")
@@ -32,8 +27,8 @@ public class MerchantProductController {
     }
 
     @ResponseBody
-    @GetMapping("all")
-    public List<?> allProducts() {
-        return productRepository.findAll();
+    @GetMapping("/add")
+    public Product createProduct(@RequestBody Product product) {
+        return productService.save(product);
     }
 }
