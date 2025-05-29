@@ -88,6 +88,70 @@
         }
 
     </style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            padding: 40px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            border-radius: 12px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .specification-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .specification-group input {
+            flex: 1;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .modal-submit-btn {
+            background-color: #28a745;
+        }
+
+        .modal-submit-btn:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
 <div class="dashboard">
@@ -96,18 +160,25 @@
         <div class="modal-content">
             <span class="close-button" id="closeModal">&times;</span>
             <h2>Add New Product</h2>
-            <form id="addProductForm" method="post" action="/user/product/create">
+
+            <form id="addProductForm" method="post" action="/merchant/product/add" style="max-height: 90vh; overflow: scroll">
                 <label for="productName">Product Name</label>
                 <input type="text" id="productName" name="name" required>
 
                 <label for="productCategory">Category</label>
                 <input type="text" id="productCategory" name="category" required>
 
-                <label for="productSpecification">Specification</label>
-                <input type="text" id="productSpecification" name="specification" required>
+                <label>Specifications</label>
+                <div id="specifications-container">
+                    <div class="specification-group">
+                        <input type="text" name="specificationList[0].attribute.name" placeholder="Attribute (e.g. Color)" required>
+                        <input type="text" name="specificationList[0].value" placeholder="Value (e.g. Red)" required>
+                    </div>
+                </div>
+                <button type="button" onclick="addSpecification()">Add Another Specification</button>
 
                 <label for="productSku">Details</label>
-                <input type="text" id="productSku" name="sku" required>
+                <input type="text" id="productSku" name="detail" required>
 
                 <label for="productPrice">Price ($)</label>
                 <input type="number" id="productPrice" name="price" step="0.01" required>
@@ -117,6 +188,35 @@
 
                 <button type="submit" class="modal-submit-btn">Add Product</button>
             </form>
+
+            <script>
+                let specIndex = 1;
+
+                function addSpecification() {
+                    const container = document.getElementById('specifications-container');
+
+                    const group = document.createElement('div');
+                    group.className = 'specification-group';
+
+                    const attrInput = document.createElement('input');
+                    attrInput.type = 'text';
+                    attrInput.name = `specificationList[${specIndex}].attribute.name`;
+                    attrInput.placeholder = "Attribute (e.g. Size)";
+                    attrInput.required = true;
+
+                    const valueInput = document.createElement('input');
+                    valueInput.type = 'text';
+                    valueInput.name = `specificationList[${specIndex}].value`;
+                    valueInput.placeholder = "Value (e.g. Large)";
+                    valueInput.required = true;
+
+                    group.appendChild(attrInput);
+                    group.appendChild(valueInput);
+                    container.appendChild(group);
+
+                    specIndex++;
+                }
+            </script>
         </div>
     </div>
 

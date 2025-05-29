@@ -22,4 +22,14 @@ public class Attribute {
     private Boolean nullable;
 
     private String type;
+
+    @Override
+    public String toString() {
+        return "Attribute{" +
+                "attributeId=" + attributeId +
+                ", name='" + name + '\'' +
+                ", nullable=" + nullable +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

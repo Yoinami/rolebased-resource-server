@@ -8,7 +8,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +35,7 @@ public class Product {
     @Lob
     private String detail; // Or use Map<String, Object> with converter
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
     @JsonManagedReference
     private List<ProductAttribute> productSpecification;
 
@@ -44,8 +46,26 @@ public class Product {
 
     private long price;
 
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "category='" + category + '\'' +
+                ", productId=" + productId +
+                ", merchantId='" + merchantId + '\'' +
+                ", name='" + name + '\'' +
+                ", detail='" + detail + '\'' +
+                ", productSpecification=" + productSpecification +
+                ", description='" + description + '\'' +
+                ", stockQuantity=" + stockQuantity +
+                ", price=" + price +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

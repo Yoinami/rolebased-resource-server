@@ -3,11 +3,9 @@ package personal.yoinami.rolebasedresourceserver.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import personal.yoinami.rolebasedresourceserver.component.RefererRedirect;
+import personal.yoinami.rolebasedresourceserver.dto.CreateProductDTO;
 import personal.yoinami.rolebasedresourceserver.model.Product;
 import personal.yoinami.rolebasedresourceserver.service.ProductService;
 
@@ -27,8 +25,8 @@ public class MerchantProductController {
     }
 
     @ResponseBody
-    @GetMapping("/add")
-    public Product createProduct(@RequestBody Product product) {
+    @PostMapping("/add")
+    public Product createProduct(@ModelAttribute CreateProductDTO product) {
         return productService.save(product);
     }
 }

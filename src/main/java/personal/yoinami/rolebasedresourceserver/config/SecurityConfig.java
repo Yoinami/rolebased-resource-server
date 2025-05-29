@@ -32,7 +32,7 @@ public class SecurityConfig {
             req
                   //  .requestMatchers("/user/**").hasRole("buyer")
                    // .requestMatchers("/*", "/css/**", "/js/**").permitAll()
-                    .anyRequest().fullyAuthenticated();
+                    .anyRequest().permitAll();
         });
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);

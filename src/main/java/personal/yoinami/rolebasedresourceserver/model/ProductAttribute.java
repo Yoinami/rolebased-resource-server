@@ -28,4 +28,13 @@ public class ProductAttribute {
     private Product product;
 
     private String value;
+
+    @Override
+    public String toString() {
+        return "ProductAttribute{" +
+                "attribute=" + attribute +
+                ", productAttributeId=" + productAttributeId +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }
