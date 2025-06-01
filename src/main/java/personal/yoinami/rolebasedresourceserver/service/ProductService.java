@@ -44,8 +44,7 @@ public class ProductService {
         product.setDetail(productDTO.getDetail());
         product.setProductSpecification(productDTO.getSpecificationList());
         product.setStockQuantity(productDTO.getStock());
-    //    product.setMerchantId(authUtil.getAuthenticatedId());
-        product.setMerchantId("111111");
+        product.setMerchantId(authUtil.getAuthenticatedId());
         product.setPrice(Long.parseLong(productDTO.getPrice().toString()));
         product.setDescription("TEST PRODUCT");
 
@@ -58,5 +57,13 @@ public class ProductService {
                 )
         );
         return productRepository.save(product);
+    }
+
+    public void delete(int product_id) {
+        productRepository.deleteById(product_id);
+    }
+
+    public void edit(Product product) {
+        productRepository.save(product);
     }
 }

@@ -24,9 +24,30 @@ public class MerchantProductController {
         return RefererRedirect.sendRedirectTo(request);
     }
 
-    @ResponseBody
     @PostMapping("/add")
-    public Product createProduct(@ModelAttribute CreateProductDTO product) {
-        return productService.save(product);
+    public String createProduct(@ModelAttribute CreateProductDTO product) {
+        try {
+            productService.save(product);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "redirect:/merchant/dashboard?message=Success";
     }
+
+    @DeleteMapping("/delete")
+    public String deleteProduct(@RequestParam int id) {
+        try {
+            productService.delete(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return "redirect:/merchant/dashboard?message=Success";
+    }
+
+    @PatchMapping("/edit")
+    public String editProduct(@ModelAttribute Product product) {
+        return "redirect:/merchant/dashboard?message=Success";
+    }
+
+
 }

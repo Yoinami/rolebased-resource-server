@@ -2,6 +2,7 @@ package personal.yoinami.rolebasedresourceserver.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -31,6 +32,11 @@ public class Product {
     private String name;
 
     private String category;
+
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Order> order;
 
     @Lob
     private String detail; // Or use Map<String, Object> with converter

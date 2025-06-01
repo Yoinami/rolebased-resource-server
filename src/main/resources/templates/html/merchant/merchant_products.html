@@ -266,20 +266,6 @@
         <div class="container">
             <div class="store-header">
                 <h2 class="section-title">Featured Products</h2>
-                <div class="filters">
-                    <select class="filter-select">
-                        <option value="all">All Categories</option>
-                        <option value="audio">Audio</option>
-                        <option value="wearable">Wearables</option>
-                        <option value="home">Smart Home</option>
-                    </select>
-                    <select class="filter-select">
-                        <option value="default">Sort By</option>
-                        <option value="price-low-high">Price: Low to High</option>
-                        <option value="price-high-low">Price: High to Low</option>
-                        <option value="new">Newest</option>
-                    </select>
-                </div>
             </div>
             <!-- Products Tab -->
             <div style="padding-top: 5%" id="products">
@@ -338,12 +324,18 @@
                                         Updated At
                                     </td>
                                     <td>
-                                        <button class="action-btn" th:attr="data-id=${product.productId}">
-                                            <i data-lucide="edit"></i>
-                                        </button>
-                                        <button class="action-btn" th:attr="data-id=${product.productId}">
-                                            <i data-lucide="trash-2"></i>
-                                        </button>
+                                        <form method="post" action="/merchant/product/edit">
+                                            <input type="hidden" name="_method" value="patch" />
+                                            <button type="submit" class="action-btn">
+                                                <i data-lucide="trash-2"></i>
+                                            </button>
+                                        </form>
+                                        <form method="post" th:action="'/merchant/product/delete?id=' + ${product.productId}">
+                                            <input type="hidden" name="_method" value="delete" />
+                                            <button class="action-btn" th:attr="data-id=${product.productId}">
+                                                <i data-lucide="edit"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 </tbody>
