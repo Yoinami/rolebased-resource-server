@@ -1,5 +1,6 @@
 package personal.yoinami.rolebasedresourceserver.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import personal.yoinami.rolebasedresourceserver.component.AuthUtil;
@@ -64,6 +65,17 @@ public class ProductService {
     }
 
     public void edit(Product product) {
-        productRepository.save(product);
+        System.out.println("----------------------------product="+ product.toString());
+        productRepository.findById(product.getProductId())
+                .map(i -> {
+                    i.setName(product.getName());
+                    i.setDetail(product.getDetail());
+                    i.setPrice(product.getPrice());
+                    i.setDescription(product.getDescription());
+                    i.setCategory(product.getCategory());
+                    i.setStockQuantity(product.getStockQuantity());
+                    System.out.println(i);
+                    return productRepository.save(i);
+                }).orElseThrow(EntityNotFoundException::new);
     }
 }

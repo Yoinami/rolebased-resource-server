@@ -1,4 +1,4 @@
-package personal.yoinami.rolebasedresourceserver.controller;
+package personal.yoinami.rolebasedresourceserver.controller.user;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

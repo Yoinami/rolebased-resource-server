@@ -2,8 +2,7 @@ package personal.yoinami.rolebasedresourceserver.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
@@ -16,10 +15,7 @@ import personal.yoinami.rolebasedresourceserver.service.ShoppingCardService;
 import java.io.File;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 @Controller
 public class ViewController {
@@ -32,15 +28,6 @@ public class ViewController {
     public String landingPage() {
         return "/html/landingPage";
     }
-
-//    @SuppressWarnings("viewName")
-//    @GetMapping("/{name}/dashboard")
-//    public String showDashboard(@PathVariable String name) {
-//
-//        if(!name.equals("user") && !name.equals("merchant") && !name.equals("admin")) ResponseEntity.notFound();
-//
-//        return "html/" + name + "_dashboard";
-//    }
 
     // Testing Endpoint
     @ResponseBody
@@ -59,7 +46,12 @@ public class ViewController {
     @ResponseBody
     @GetMapping("me")
     public Object me() {
-        return SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, String> hm = new HashMap<>();
+        hm.put("name", auth.getName());
+        hm.put("principle", auth.getPrincipal().toString());
+        hm.put("authorities", auth.getAuthorities().toString());
+        return hm;
     }
 
     // Testing Endpoint
@@ -69,9 +61,7 @@ public class ViewController {
         DefaultOidcUser defaultOidcUser = (DefaultOidcUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         var hello = SecurityContextHolder.getContext();
         var bruh = SecurityContextHolder.getContext().getAuthentication();
-
         Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>)    SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-
         return defaultOidcUser.getClaims();
     }
 

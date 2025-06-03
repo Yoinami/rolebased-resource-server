@@ -1,0 +1,1 @@
+bin/kc.bat --http-port=8081

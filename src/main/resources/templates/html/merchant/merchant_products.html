@@ -220,6 +220,39 @@
         </div>
     </div>
 
+    <!-- Edit Product Modal -->
+    <div id="editProductModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" id="closeEditModal">&times;</span>
+            <h2>Edit Product</h2>
+
+            <form id="editProductForm" method="post" th:action="'/merchant/product/edit'">
+                <input type="hidden" name="_method" value="patch" />
+                <input type="hidden" id="editProductId" name="productId" />
+
+                <label for="editProductName">Product Name</label>
+                <input type="text" id="editProductName" name="name" required>
+
+                <label for="editProductCategory">Category</label>
+                <input type="text" id="editProductCategory" name="category" required>
+
+                <label for="editProductDetail">Details</label>
+                <input type="text" id="editProductDetail" name="detail" required>
+
+                <label for="editProductPrice">Price ($)</label>
+                <input type="number" id="editProductPrice" name="price" step="0.01" required>
+
+                <label for="editProductStock">Stock</label>
+                <input type="number" id="editProductStock" name="stockQuantity" required>
+
+                <label for="editDescription">Description</label>
+                <input type="text" id="editDescription" name="description" required>
+
+                <button type="submit" class="modal-submit-btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Mobile Header -->
     <header class="header">
         <button id="sidebar-toggle" class="sidebar-toggle">
@@ -324,16 +357,21 @@
                                         Updated At
                                     </td>
                                     <td>
-                                        <form method="post" action="/merchant/product/edit">
-                                            <input type="hidden" name="_method" value="patch" />
-                                            <button type="submit" class="action-btn">
-                                                <i data-lucide="trash-2"></i>
-                                            </button>
-                                        </form>
+                                        <button class="action-btn edit-btn"
+                                                th:data-id="${product.productId}"
+                                                th:data-name="${product.name}"
+                                                th:data-category="${product.category}"
+                                                th:data-detail="${product.detail}"
+                                                th:data-price="${product.price}"
+                                                th:data-stock="${product.stockQuantity}"
+                                                th:data-description="${product.description}"
+                                        >
+                                            <i data-lucide="edit"></i>
+                                        </button>
                                         <form method="post" th:action="'/merchant/product/delete?id=' + ${product.productId}">
                                             <input type="hidden" name="_method" value="delete" />
                                             <button class="action-btn" th:attr="data-id=${product.productId}">
-                                                <i data-lucide="edit"></i>
+                                                <i data-lucide="trash"></i>
                                             </button>
                                         </form>
                                     </td>
@@ -351,10 +389,8 @@
 
 <div class="overlay" id="overlay"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
-<script>
-    lucide.createIcons();
-</script>
+
+
 <script>
     // Modal toggle logic
     const modal = document.getElementById("addProductModal");
@@ -376,6 +412,40 @@
     });
 
 </script>
+<script>
+    const editModal = document.getElementById("editProductModal");
+    const closeEditBtn = document.getElementById("closeEditModal");
+
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            document.getElementById("editProductId").value = btn.dataset.id;
+            document.getElementById("editProductName").value = btn.dataset.name;
+            document.getElementById("editProductCategory").value = btn.dataset.category;
+            document.getElementById("editProductDetail").value = btn.dataset.detail;
+            document.getElementById("editProductPrice").value = btn.dataset.price;
+            document.getElementById("editProductStock").value = btn.dataset.stock;
+            document.getElementById("editDescription").value = btn.dataset.description;
+
+            editModal.classList.remove("hidden");
+        });
+    });
+
+    closeEditBtn.addEventListener("click", () => {
+        editModal.classList.add("hidden");
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === editModal) {
+            editModal.classList.add("hidden");
+        }
+    });
+</script>
 <script src="/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+    lucide.createIcons();
+</script>
 </body>
 </html>

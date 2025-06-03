@@ -190,17 +190,6 @@ body {
     background-color: var(--primary-hover);
 }
 
-.action-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border: none;
-    background-color: transparent;
-    border-radius: 0.25rem;
-    cursor: pointer;
-}
 
 .action-btn:hover {
     background-color: rgba(0, 0, 0, 0.05);

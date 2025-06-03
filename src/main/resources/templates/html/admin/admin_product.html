@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Manage Products</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h1 class="page-title">Product Management</h1>
+
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">All Products</h2>
+    </div>
+    <div class="card-content">
+      <table class="product-table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Merchant</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Stock</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+          <td th:text="${product.productId}">1</td>
+          <td th:text="${product.name}">Sample Product</td>
+          <td>
+            <a th:text="${product.merchantId}" th:href="'/admin/merchnat?id=' + ${product.merchantId}">
+              MerchantId
+            </a>
+          </td>
+          <td th:text="${product.category}">Electronics</td>
+          <td>ACTIVE</td>
+          <td th:text="${product.stockQuantity}">100</td>
+          <td th:text="'$' + ${product.price}">25.00</td>
+          <td class="actions">
+            <!-- Ban Button -->
+            <form method="post" th:action="'/admin/product/ban?id=' + ${product.productId}">
+              <input type="hidden" name="_method" value="post" />
+              <button type="submit" class="action-btn danger-btn" title="Ban">
+                <i data-lucide="x-circle"></i>
+              </button>
+            </form>
+            <!-- Freeze Button -->
+            <form method="post" th:action="'/admin/product/freeze?id=' + ${product.productId}">
+              <input type="hidden" name="_method" value="post" />
+              <button type="submit" class="action-btn warning-btn" title="Freeze">
+                <i data-lucide="pause-circle"></i>
+              </button>
+            </form>
+            <!-- Unlist Button -->
+            <form method="post" th:action="'/admin/product/unlist?id=' + ${product.productId}">
+              <input type="hidden" name="_method" value="post" />
+              <button type="submit" class="action-btn secondary-btn" title="Unlist">
+                <i data-lucide="eye-off"></i>
+              </button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>
